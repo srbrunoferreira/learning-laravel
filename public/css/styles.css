@@ -1,0 +1,20 @@
+* {
+  font-family: Roboto;
+}
+
+.navbar img {
+  width: 50px;
+}
+.navbar-mycustom-css {
+  display: flex;
+  flex-direction: row;
+}
+
+.navbar-mycustom-css ul {
+  flex-direction: row;
+  align-items: center;
+}
+
+.navbar-mycustom-css ul li {
+  margin: 0 6px;
+}
