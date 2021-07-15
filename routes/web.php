@@ -2,6 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\EventController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\ProductController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,20 +17,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    $nome = 'Matheus';
-    return view('welcome', ['nome' => $nome]);
-});
+Route::get('/', [EventController::class, 'index']);
 
-Route::get('/contact/', function() {
-    return view('contact');
-});
+Route::get('/evento/criar', [EventController::class, 'create']);
 
-Route::get('/produtos', function() {
-    $busca = request('search');
-    return view('products', ['busca' => $busca]);
-});
+Route::get('/contato', [ContactController::class, 'index']);
 
-Route::get('/produtos_test/{id?}', function($id = null) {
+Route::get('/produtos', [ProductController::class, 'listProducts']);
+
+Route::get('/produtos_test/{id?}', function ($id = null) {
     return view('products', ['id' => $id]);
 });
