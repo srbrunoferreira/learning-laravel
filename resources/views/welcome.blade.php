@@ -4,12 +4,8 @@
 
 @section('content')
 
-<h1>Some title</h1>
-<p>{{$nome}}</p>
-@if($nome === 'Pedro')
-<p>O nome é Pedro</p>
-@else
-<p>O nome não é Pedro</p>
-@endif;
+@foreach($events as $event)
+  <p>{{ $event->title }} -- {{ $event->description }}</p>
+@endforeach
 
 @endsection
