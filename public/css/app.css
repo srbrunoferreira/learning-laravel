@@ -88,7 +88,7 @@ body {
    margin-bottom: 10px;
  }
 
- #eevents-container .subtitle {
+ #events-container .subtitle {
    color: #757575;
    margin-bottom: 30px;
  }
@@ -137,3 +137,18 @@ body {
    bottom: 0;
    width: 100%;
  }
+
+/* Event create container */
+#event-create-container {
+  padding: 30px;
+}
+
+#event-create-container label {
+  font-weight: bold;
+}
+
+#event-create-container input,
+#event-create-container select,
+#event-create-container textarea {
+  font-size: 12px;
+}

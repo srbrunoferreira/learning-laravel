@@ -20,5 +20,6 @@ use App\Http\Controllers\ProductController;
 Route::get('/', [EventController::class, 'index']);
 
 Route::get('/evento/criar', [EventController::class, 'create']);
+Route::post('/events', [EventController::class, 'store']);
 
 Route::get('/contato', [ContactController::class, 'index']);
