@@ -199,3 +199,12 @@ body {
 #info-container #event-submit {
   margin: 20px 0;
 }
+
+#items-list {
+  list-style: none;
+  paddin-left: 0;
+}
+
+#items-list li {
+  display: flex;
+}
