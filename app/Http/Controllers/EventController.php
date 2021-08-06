@@ -5,58 +5,68 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Event;
+use App\Models\User;
 
-class EventController extends Controller
-{
-    public function index() {
-        $search = request('search');
+class EventController extends Controller {
+	public function index() {
+		$search = request('search');
 
-        if ($search) {
-            $events = Event::where('title', 'like', '%'.$search.'%')->get();
-        } else {
-            $events = Event::all();
-        }
+		if ($search) {
+			$events = Event::where('title', 'like', '%' . $search . '%')->get();
+		} else {
+			$events = Event::all();
+		}
 
-        return view('welcome', ['events' => $events, 'search' => $search]);
-    }
+		return view('welcome', ['events' => $events, 'search' => $search]);
+	}
 
-    public function create() {
-        return view('event.create');
-    }
+	public function create() {
+		return view('event.create');
+	}
 
-    public function store(Request $request) {
-        $event = new Event;
+	public function store(Request $request) {
+		$event = new Event();
 
-        $event->title = $request->title;
-        $event->date = $request->date;
-        $event->city = $request->city;
-        $event->private = $request->private;
-        $event->description = $request->description;
-        $event->items = $request->items;
+		$event->title = $request->title;
+		$event->date = $request->date;
+		$event->city = $request->city;
+		$event->private = $request->private;
+		$event->description = $request->description;
+		$event->items = $request->items;
 
-        if ($request->hasFile('image') && $request->file('image')->isValid()) {
-            $requestImage = $request->image;
+		if ($request->hasFile('image') && $request->file('image')->isValid()) {
+			$requestImage = $request->image;
 
-            $imgType = $requestImage->extension();
+			$imgType = $requestImage->extension();
 
-            $imgName = md5($requestImage->getClientOriginalName() . strtotime('now'));
-            $imgName .= '.' . $imgType;
+			$imgName = md5($requestImage->getClientOriginalName() . strtotime('now'));
+			$imgName .= '.' . $imgType;
 
-            $request->image->move(public_path('img/events'), $imgName);
-            $event->image = $imgName;
-        }
+			$request->image->move(public_path('img/events'), $imgName);
+			$event->image = $imgName;
+		}
 
-        $user = auth()->user();
-        $event->user_id = $user->id;
+		$user = auth()->user();
+		$event->user_id = $user->id;
 
-        $event->save();
+		$event->save();
 
-        return redirect('/')->with('msg', 'Evento criado com sucesso!');
-    }
+		return redirect('/')->with('msg', 'Evento criado com sucesso!');
+	}
 
-    public function show($id) {
-        $event = Event::findOrFail($id);
+	public function show($id) {
+		$event = Event::findOrFail($id);
 
-        return view('event.show', ['event' => $event]);
-    }
+		$eventOwner = User::where('id', $event->user_id)->first()->toArray();
+
+		return view('event.show', ['event' => $event, 'eventOwner' => $eventOwner]);
+	}
+
+	public function dashboard() {
+		$user = auth()->user();
+
+		$events = $user->events;
+
+		return view('event.dashboard', ['events' => $events]);
+	}
 }
