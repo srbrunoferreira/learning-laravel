@@ -19,24 +19,24 @@
         </thead>
         <tbody>
             @foreach($events as $event)
-                <tr>
-                    <th scropt="row">{{ $loop->index + 1 }}</th>
-                    <td><a href="events/{{ $event->id }}">{{ $event->title }}</a></td>
-                    <td>0</td>
-                    <td>
-                        <a href="#" class="btn btn-info edit-btn">Editar</a>
-                        <form action="/events/{{ $event->id }}" method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger delete-btn">Deletar</button>
-                        </form>
-                    </td>
-                </tr>
+            <tr>
+                <th scropt="row">{{ $loop->index + 1 }}</th>
+                <td><a href="events/{{ $event->id }}">{{ $event->title }}</a></td>
+                <td>0</td>
+                <td>
+                    <a href="/events/edit/{{ $event->id }}" class="btn btn-info edit-btn">Editar</a>
+                    <form action="/events/{{ $event->id }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger delete-btn">Deletar</button>
+                    </form>
+                </td>
+            </tr>
             @endforeach
         </tbody>
     </table>
     @else
-        <p>Você ainda não tem eventos, <a href="/events/create">criar evento</a></p>
+    <p>Você ainda não tem eventos, <a href="/events/create">criar evento</a></p>
     @endif
 </div>
 
