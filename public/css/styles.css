@@ -245,3 +245,10 @@ footer p {
   width: 100px;
   margin-top: 20px;
 }
+
+.already-joined-msg {
+  margin: 15px 0;
+  color: #004085;
+  background-color: #cce5ff;
+  border: 1px solid #bbdaff
+}
